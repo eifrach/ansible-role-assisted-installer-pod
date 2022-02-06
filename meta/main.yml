@@ -2,29 +2,30 @@ galaxy_info:
   author: Eran Ifrach
   description: Deploy Assisted Installer locally  
   company: RedHat 
-
-version: 0.1.0
-
-license:
-  - Apache-2.0
-
-min_ansible_version: 2.0
-
-role_name: assisted-installer-pod
-
-platforms: 
-  - name: Fedora
-    versions: 
-      - all
-  - name: RHEL
-    versions:
-      - 8.4+
-
-readme: README.md
-
-galaxy_tags:
-  - assisted installer
-  - openshift
-
-dependencies:
-  - containers.podman
+  
+  version: 0.1.0
+  
+  license:
+    - Apache-2.0
+  
+  min_ansible_version: 2.0
+  
+  role_name: assisted-installer-pod
+  
+  platforms: 
+    - name: Fedora
+      versions: 
+        - all
+    - name: RHEL
+      versions:
+        - 8.4+
+  
+  readme: README.md
+  
+  galaxy_tags:
+    - assisted installer
+    - openshift
+  
+  dependencies:
+    - containers.podman
+  
