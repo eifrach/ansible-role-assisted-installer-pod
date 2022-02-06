@@ -1,0 +1,16 @@
+---
+- name: Test Variables
+  include_tasks: test_vars.yaml
+  tags: tests, deploy
+
+- name: Install dependencies
+  include_tasks: deps.yaml
+  tags: deps
+
+- name: Deploy pod
+  include_tasks: deploy.yaml
+  tags: deploy
+
+- name: Cleanup
+  include_tasks: cleanup.yaml
+  tags: never, cleanup

@@ -1,0 +1,103 @@
+---
+- name: Create workdir
+  file:
+    path: "{{ WORKDIR }}"
+    state: directory
+    recurse: yes
+  become: true
+  tags: deploy
+
+- name: Cleanup old Database
+  shell: "rm -rf {{ WORKDIR }}/pg_data/*"
+  when: CLEAN is true
+  become: true
+  tags: deploy
+
+- name: Create Database directory
+  file:
+    path: "{{ WORKDIR }}/pg_data"
+    state: directory
+    recurse: yes
+    mode: '0777'
+  become: true
+  when: PRESERVE_DB is true
+  tags: deploy
+
+- name: set SELinux labels 
+  community.general.sefcontext:
+    target: "{{ WORKDIR }}/pg_data"
+    setype: container_file_t
+    state: present
+  become: true
+  when: PRESERVE_DB is true
+  tags: deploy
+
+- name: Apply new SELinux context 
+  ansible.builtin.command: "restorecon -irv {{ WORKDIR }}/pg_data"
+  become: true
+  tags: deploy
+
+- name: Create Database directory
+  file:
+    path: "{{ WORKDIR }}"
+    state: directory
+    recurse: yes
+    mode: '0777'
+  become: true
+  when: PRESERVE_DB is true
+  tags: deploy
+
+- name: update Validator requirements
+  set_fact:
+    DEFAULT_HW_VALIDATOR_REQUIREMENTS: "{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | combine(VALIDATOR_REQUIREMENTS, recursive=true) }}"
+  when: VALIDATOR_REQUIREMENTS is defined
+  tags: deploy
+
+- name: Render pod config
+  template:
+    src: "pod.j2"
+    dest: "{{ WORKDIR }}/assisted-installer-pod.yaml"
+  become: true
+  tags: deploy
+
+- name: Render configmap
+  template:
+    src: "configmap.j2"
+    dest: "{{ WORKDIR }}/assisted-installer-configmap.yaml"
+  register: CONFIGMAP
+  become: true
+  tags: deploy
+ 
+- name: Create assisted installer pod
+  containers.podman.podman_play:
+    kube_file: "{{ WORKDIR }}/assisted-installer-pod.yaml"
+    configmap: "{{ WORKDIR }}/assisted-installer-configmap.yaml"
+    state: started
+  tags: deploy
+  become: true
+
+- name: Get assisted installer pod state
+  containers.podman.podman_pod_info:
+    name: assisted-installer
+  become: true
+  register: POD_STATUS
+  tags: deploy
+
+- name: Restart pod if changed
+  containers.podman.podman_play:
+    kube_file: "{{ WORKDIR }}/assisted-installer-pod.yaml"
+    configmap: "{{ WORKDIR }}/assisted-installer-configmap.yaml"
+    state: started
+    recreate: yes
+  tags: deploy
+  become: true
+  when:  CONFIGMAP.changed is true
+
+
+- name: verify Pod is running
+  assert:
+    that: 
+      - POD_STATUS.pods[0].State == "Running"
+    fail_msg: "pod is Not running, pod state: {{ POD_STATUS.pods[0].State  }}"
+    success_msg: "Pod is Running, acceess the UI  http://{{ ansible_fqdn  }}:8080"
+  tags: deploy

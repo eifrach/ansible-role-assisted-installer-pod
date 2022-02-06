@@ -1,0 +1,37 @@
+- name: verify RELEASE_IMAGES
+  assert:
+    that:
+      - item.openshift_version is defined
+      - item.cpu_architecture is defined
+      - item.url is defined
+      - item.version is defined
+    fail_msg: "missing paramters for RELEASE_IMAGES"
+  loop: "{{ RELEASE_IMAGES }}"
+  when: RELEASE_IMAGES is defined
+  tags: tests, deploy
+
+- name: verify OS_IMAGES
+  assert:
+    that:
+      - item.openshift_version is defined
+      - item.cpu_architecture is defined
+      - item.url is defined
+      - item.rootfs_url is defined
+      - item.version is defined
+    fail_msg: "missing paramters for OS_IMAGES"
+  loop: "{{ OS_IMAGES }}"
+  when: OS_IMAGES is defined
+  tags: tests, deploy
+
+- name: update release images
+  set_fact:
+    DEFAULT_RELEASE_IMAGES: "{{ DEFAULT_RELEASE_IMAGES + RELEASE_IMAGES }}"
+  when: RELEASE_IMAGES is defined
+  tags: tests, deploy
+
+- name: update os images
+  set_fact:
+    DEFAULT_OS_IMAGES: "{{ DEFAULT_OS_IMAGES + OS_IMAGES }}"
+  when: OS_IMAGES is defined
+  tags: tests, deploy
+  

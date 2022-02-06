@@ -1,0 +1,14 @@
+
+- name: Delete Pod
+  containers.podman.podman_pod:
+    name: asissted-installer
+    state: absent
+  become: true
+  tags: cleanup
+
+- name: delete WORKDIR
+  file:
+    path: "{{ WORKDIR }}"
+    state: absent
+  become: true
+  tags: cleanup

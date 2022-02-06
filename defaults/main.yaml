@@ -1,0 +1,59 @@
+# oprem variables
+
+POSTGRESQL_DATABASE: installer
+POSTGRESQL_PASSWORD: password
+POSTGRESQL_USER: admin
+DB_HOST: 127.0.0.1
+DB_PORT: 5432
+DB_USER: admin
+DB_PASS: password
+DB_NAME: installer
+
+ASSISTED_SERVICE_SCHEME: http
+ASSISTED_SERVICE_HOST: 127.0.0.1:8090
+# TODO: need to check PORT CONFIG
+LISTEN_PORT: 8888
+DEPLOY_TARGET: onprem
+STORAGE: filesystem
+DUMMY_IGNITION: false
+
+DEFAULT_RELEASE_IMAGES:
+  - openshift_version: "4.9"
+    cpu_architecture: "x86_64"
+    url: "quay.io/openshift-release-dev/ocp-release:4.9.11-x86_64"
+    version: 4.9.11
+    default: true
+
+DEFAULT_OS_IMAGES: 
+  - openshift_version: "4.9"
+    cpu_architecture: "x86_64"
+    url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-4.9.0-x86_64-live.x86_64.iso"
+    rootfs_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-live-rootfs.x86_64.img"
+    version: "49.84.202110081407-0"
+
+DEFAULT_HW_VALIDATOR_REQUIREMENTS:
+  - version: default
+    master:
+      cpu_cores: 4
+      ram_mib: 16384
+      disk_size_gb: 20
+      installation_disk_speed_threshold_ms: 10
+      network_latency_threshold_ms: 100
+      packet_loss_percentage: 0
+    worker:  
+      cpu_cores: 2
+      ram_mib: 8192
+      disk_size_gb: 20
+      installation_disk_speed_threshold_ms: 10
+      network_latency_threshold_ms: 1000
+      packet_loss_percentage: 10
+    sno:
+      cpu_cores: 8
+      ram_mib: 32768
+      disk_size_gb: 20
+      installation_disk_speed_threshold_ms: 10
+
+# Global vars
+WORKDIR: /home/assisted-podman
+PRESERVE_DB: true
+CLEAN: false

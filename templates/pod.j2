@@ -1,0 +1,50 @@
+# Reference: https://github.com/openshift/assisted-service/blob/master/deploy/podman/pod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: assisted-installer
+  name: assisted-installer
+spec:
+  containers:
+  - args:
+    - run-postgresql
+    image: "quay.io/centos7/postgresql-12-centos7:{{ IMG_POSTGRES_TAG | default('latest') }}"
+    name: db
+{% if PRESERVE_DB == true %}
+    volumeMounts:
+    - mountPath: /var/lib/pgsql/data
+      name: db-volume
+{% endif %}
+    envFrom:
+    - configMapRef:
+        name: config
+  - image: "quay.io/edge-infrastructure/assisted-installer-ui:{{ IMG_AI_UI_TAG | default('latest') }}"
+    name: ui
+    ports:
+    - hostPort: 8080
+    envFrom:
+    - configMapRef:
+        name: config
+  - image: "quay.io/edge-infrastructure/assisted-image-service:{{ IMG_AI_IMAGE_TAG | default('latest') }}"
+    name: image-service
+    ports:
+    - hostPort: 8888
+    envFrom:
+    - configMapRef:
+        name: config
+  - image: "quay.io/edge-infrastructure/assisted-service:{{ IMG_AI_SERVICE_TAG | default('latest') }}"
+    name: service
+    ports:
+    - hostPort: 8090
+    envFrom:
+    - configMapRef:
+        name: config
+  restartPolicy: Always
+{% if PRESERVE_DB == true %}
+  volumes:
+  - name: db-volume
+    hostPath:
+      path: {{ WORKDIR }}/pg_data
+      type: Directory
+{% endif  %}
