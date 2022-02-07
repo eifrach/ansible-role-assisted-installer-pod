@@ -1,9 +1,9 @@
 ---
 - name: Install Podman 
   yum:
-    name:
-      - podman>=3.3.0
-    state: present
+    name: podman >= 3.3.0
+    state: latest
+    update_cache: yes
   become: true
   tags: deps
 
