@@ -132,7 +132,7 @@ RELEASE_IMAGES:
       version: "4.10.0-fc-3"
 ```
 
-Adding is images: 
+Adding os images: 
 ```yaml
 OS_IMAGES:
     - openshift_version: "4.10"
