@@ -14,9 +14,3 @@
     enabled: yes
   become: true
   tags: deps
-  
-#- name: install Ansible podman
-#  community.general.ansible_galaxy_install:
-#    type: collection
-#    name: containers.podman
-#  delegate_to: localhost
