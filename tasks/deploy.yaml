@@ -24,7 +24,7 @@
   tags: deploy
 
 - name: set SELinux labels 
-  community.general.sefcontext:
+  sefcontext:
     target: "{{ WORKDIR }}/pg_data"
     setype: container_file_t
     state: present
@@ -33,7 +33,7 @@
   tags: deploy
 
 - name: Apply new SELinux context 
-  ansible.builtin.command: "restorecon -irv {{ WORKDIR }}/pg_data"
+  command: "restorecon -irv {{ WORKDIR }}/pg_data"
   become: true
   tags: deploy
 
