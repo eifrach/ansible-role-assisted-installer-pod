@@ -49,8 +49,8 @@
 
 - name: update Validator requirements
   set_fact:
-    DEFAULT_HW_VALIDATOR_REQUIREMENTS: "{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | combine(VALIDATOR_REQUIREMENTS, recursive=true) }}"
-  when: VALIDATOR_REQUIREMENTS is defined
+    DEFAULT_HW_VALIDATOR_REQUIREMENTS: "{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | combine(HW_VALIDATOR_REQUIREMENTS, recursive=true) }}"
+  when: HW_VALIDATOR_REQUIREMENTS is defined
   tags: deploy
 
 - name: Render pod config
