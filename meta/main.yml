@@ -1,3 +1,4 @@
+
 galaxy_info:
   author: Eran Ifrach
   description: Deploy Assisted Installer locally  
@@ -26,6 +27,4 @@ galaxy_info:
     - assisted installer
     - openshift
   
-  dependencies:
-    - containers.podman
   

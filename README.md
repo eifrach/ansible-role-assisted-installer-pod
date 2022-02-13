@@ -61,6 +61,50 @@ PRESERVE_DB: true
 # if you need to clean up old database on the 
 # next deployment
 CLEAN: false
+
+# IPv6 support default to true
+IPV6: true
+
+# skip SSL verification 
+SKIP_CERT_VERIFICATION: true
+
+# set default NTP server
+NTP_SERVER: ""
+
+# enabled Dnsmasq single node
+ENABLE_SINGLE_NODE_DNSMASQ: true
+
+# default enabled disk encryption
+DISK_ENCRYPTION_SUPPORT: true
+
+# authentication type 
+# valid inputs none, rhsso, local
+AUTH_TYPE: "none"
+
+# deploy Target 
+# valid inputs k8s, onprem, ocp
+DEPLOY_TARGET: "onprem"
+
+INSTALL_RH_CA: false
+
+DUMMY_IGNITION: false
+
+# default container registries 
+PUBLIC_CONTAINER_REGISTRIES: "quay.io"
+
+# Install redhat certificates 
+INSTALL_RH_CA: "false"
+
+# service mode http / https
+ASSISTED_SERVICE_SCHEME: "http"
+
+# Assisted service IP and Port
+ASSISTED_SERVICE_HOST: 127.0.0.1:8090
+
+# image service IP and port
+IMAGE_SERVICE_BASE_URL: http://<host ip>:8888
+
+STORAGE: "filesystem"
 ```
 
 basic configuration for database connection:
@@ -139,5 +183,10 @@ OS_IMAGES:
       version: "410.84.202201261816-0"
 ```
 
-
+specifying container images:
+```yaml
+CONTROLLER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-reporter-rhel8:v1.0.0-151
+AGENT_DOCKER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-agent-rhel8:v1.0.0-82
+INSTALLER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-rhel8:v1.0.0-116
+```
 
