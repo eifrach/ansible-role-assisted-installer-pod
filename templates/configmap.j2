@@ -12,24 +12,39 @@ data:
     DB_USER: {{ POSTGRESQL_USER }}
     DB_PASS: {{ POSTGRESQL_PASSWORD }}
     DB_NAME: {{ POSTGRESQL_DATABASE }}
-    SERVICE_BASE_URL: http://{{ SERVICE_BASE_URL | default(ansible_fqdn) }}:8090
+    AUTH_TYPE: "{{ AUTH_TYPE | default("none") }}"
+    DEPLOY_TARGET: {{ DEPLOY_TARGET }}
+    INSTALL_RH_CA: "{{ INSTALL_RH_CA | default("false") }}"
+    SKIP_CERT_VERIFICATION: {{ SKIP_CERT_VERIFICATION | default('true') }}
+    INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED: "{{ INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED }}"
+    DUMMY_IGNITION: {{ DUMMY_IGNITION | default("false") }}
+    ENABLE_SINGLE_NODE_DNSMASQ: {{ ENABLE_SINGLE_NODE_DNSMASQ | default("true")}}
+    DISK_ENCRYPTION_SUPPORT: {{ DISK_ENCRYPTION_SUPPORT | default('true')}}
+    PUBLIC_CONTAINER_REGISTRIES: "{{ PUBLIC_CONTAINER_REGISTRIES | default("quay.io" }}"
+    IMAGE_SERVICE_BASE_URL: http://{{ IMAGE_SERVICE_BASE_URL | default(ansible_ssh_host) }}:8888
+    INSTALL_RH_CA: "{{ INSTALL_RH_CA | default("false") }}"
+
+    INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED: quay.io/openshift-release-dev/ocp-release:4.10.0-fc.3-x86_64
+
+
+   
+    SERVICE_BASE_URL: http://{{ SERVICE_BASE_URL | default(ansible_ssh_host) }}:8090
     ASSISTED_SERVICE_SCHEME: {{ ASSISTED_SERVICE_SCHEME }}
     ASSISTED_SERVICE_HOST: {{ ASSISTED_SERVICE_HOST }}
-    IMAGE_SERVICE_BASE_URL: http://{{ IMAGE_SERVICE_BASE_URL | default(ansible_fqdn) }}:8888
-    LISTEN_PORT: {{ LISTEN_PORT }}
-    DEPLOY_TARGET: {{ DEPLOY_TARGET }}
+    LISTEN_PORT: "{{ LISTEN_PORT | default('8888')}}"
+    
     STORAGE: {{ STORAGE }}
-    DUMMY_IGNITION: {{ DUMMY_IGNITION }}
+    
     OS_IMAGES: '{{ DEFAULT_OS_IMAGES | to_json  }}'
     RELEASE_IMAGES: '{{ DEFAULT_RELEASE_IMAGES | to_json}}'
-    ENABLE_SINGLE_NODE_DNSMASQ: true
-    DISK_ENCRYPTION_SUPPORT: true
-    PUBLIC_CONTAINER_REGISTRIES: quay.io
+    
+    
+    
     NTP_DEFAULT_SERVER: {{ NTP_SERVER | default("")}}
     IPV6_SUPPORT: {{ IPV6 | default("true")}}
-    AUTH_TYPE: none
+    
     HW_VALIDATOR_REQUIREMENTS: '{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | to_json}}'
-    AGENT_DOCKER_IMAGE: "quay.io/itsoiref/assisted-installer-agent:latest_arm_test"
-    CONTROLLER_IMAGE: "quay.io/itsoiref/assisted-installer-controller:arm"
-    INSTALLER_IMAGE: "quay.io/itsoiref/assisted-installer:arm_latest"
+    AGENT_DOCKER_IMAGE: "{{ AGENT_DOCKER_IMAGE }}"
+    CONTROLLER_IMAGE: "{{ CONTROLLER_IMAGE }}"
+    INSTALLER_IMAGE: "{{ INSTALLER_IMAGE }}"
 
