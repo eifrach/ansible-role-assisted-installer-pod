@@ -65,47 +65,36 @@ CLEAN: false
 # IPv6 support default to true
 IPV6: true
 
-# skip SSL verification 
-SKIP_CERT_VERIFICATION: true
-
 # set default NTP server
 NTP_SERVER: ""
 
 # enabled Dnsmasq single node
 ENABLE_SINGLE_NODE_DNSMASQ: true
 
-# default enabled disk encryption
-DISK_ENCRYPTION_SUPPORT: true
-
-# authentication type 
-# valid inputs none, rhsso, local
-AUTH_TYPE: "none"
-
-# deploy Target 
-# valid inputs k8s, onprem, ocp
-DEPLOY_TARGET: "onprem"
-
-INSTALL_RH_CA: false
 
 DUMMY_IGNITION: false
 
 # default container registries 
 PUBLIC_CONTAINER_REGISTRIES: "quay.io"
 
-# Install redhat certificates 
-INSTALL_RH_CA: "false"
-
 # service mode http / https
 ASSISTED_SERVICE_SCHEME: "http"
-
-# Assisted service IP and Port
-ASSISTED_SERVICE_HOST: 127.0.0.1:8090
-
-# image service IP and port
-IMAGE_SERVICE_BASE_URL: http://<host ip>:8888
-
-STORAGE: "filesystem"
 ```
+
+change image for assisted installer
+```yaml
+# Service container
+SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-service:latest
+
+# UI image
+ASSISTED_UI_IMAGE: quay.io/edge-infrastructure/assisted-installer-ui:latest
+
+#image Service
+IMAGE_SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-image-service:latest
+# postgres sql image 
+PSQL_IMAGE_IMAGE: quay.io/centos7/postgresql-12-centos7:latest
+```
+
 
 basic configuration for database connection:
 ```yaml
@@ -144,21 +133,21 @@ HW_VALIDATOR_REQUIREMENTS:
     master:
       cpu_cores: 4
       ram_mib: 16384
-      disk_size_gb: 20
+      disk_size_gb: 120
       installation_disk_speed_threshold_ms: 10
       network_latency_threshold_ms: 100
       packet_loss_percentage: 0
     worker:  
       cpu_cores: 2
       ram_mib: 8192
-      disk_size_gb: 20
+      disk_size_gb: 120
       installation_disk_speed_threshold_ms: 10
       network_latency_threshold_ms: 1000
       packet_loss_percentage: 10
-    sno:
-      cpu_cores: 8
-      ram_mib: 32768
-      disk_size_gb: 20
+    sno: 
+      cpu_cores: 4
+      ram_mib: 16384
+      disk_size_gb: 120
       installation_disk_speed_threshold_ms: 10
 ```
 

@@ -9,7 +9,7 @@ spec:
   containers:
   - args:
     - run-postgresql
-    image: "quay.io/centos7/postgresql-12-centos7:{{ IMG_POSTGRES_TAG | default('latest') }}"
+    image: "{{ PSQL_IMAGE_IMAGE }}"
     name: db
 {% if PRESERVE_DB == true %}
     volumeMounts:
@@ -19,21 +19,21 @@ spec:
     envFrom:
     - configMapRef:
         name: config
-  - image: "quay.io/edge-infrastructure/assisted-installer-ui:{{ IMG_AI_UI_TAG | default('latest') }}"
+  - image: "{{ ASSISTED_UI_IMAGE }}"
     name: ui
     ports:
     - hostPort: 8080
     envFrom:
     - configMapRef:
         name: config
-  - image: "quay.io/edge-infrastructure/assisted-image-service:{{ IMG_AI_IMAGE_TAG | default('latest') }}"
+  - image: "{{ SERVICE_IMAGE }}"
     name: image-service
     ports:
     - hostPort: 8888
     envFrom:
     - configMapRef:
         name: config
-  - image: "quay.io/edge-infrastructure/assisted-service:{{ IMG_AI_SERVICE_TAG | default('latest') }}"
+  - image: "{{ SERVICE_IMAGE }}"
     name: service
     ports:
     - hostPort: 8090
