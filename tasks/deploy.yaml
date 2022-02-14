@@ -68,13 +68,13 @@
   become: true
   tags: deploy
  
-- name: Create assisted installer pod
-  containers.podman.podman_play:
-    kube_file: "{{ WORKDIR }}/assisted-installer-pod.yaml"
-    configmap: "{{ WORKDIR }}/assisted-installer-configmap.yaml"
-    state: started
+- name: Restart pod if changed
+  containers.podman.podman_pod:
+    name: assisted-installer
+    state: restarted
   tags: deploy
   become: true
+  when:  CONFIGMAP.changed is true
 
 - name: Get assisted installer pod state
   containers.podman.podman_pod_info:
