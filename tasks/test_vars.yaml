@@ -34,4 +34,3 @@
     DEFAULT_OS_IMAGES: "{{ DEFAULT_OS_IMAGES + OS_IMAGES }}"
   when: OS_IMAGES is defined
   tags: tests, deploy
-  

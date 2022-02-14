@@ -21,10 +21,6 @@ DEFAULT_RELEASE_IMAGES:
     cpu_architecture: "arm64"
     url: "quay.io/openshift-release-dev/ocp-release:4.10.0-fc.3-aarch64"
     version: "4.10.0-fc.3"
-  # - openshift_version: "4.9"
-  #   cpu_architecture: "x86_64"
-  #   url: "quay.io/openshift-release-dev/ocp-release:4.9.17-x86_64"
-  #   version: "4.9.17"
 
 DEFAULT_OS_IMAGES: 
   - openshift_version: "4.10"
@@ -37,11 +33,6 @@ DEFAULT_OS_IMAGES:
     url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/pre-release/4.10.0-fc.2/rhcos-4.10.0-fc.2-x86_64-live.x86_64.iso"
     rootfs_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/pre-release/4.10.0-fc.2/rhcos-4.10.0-fc.2-x86_64-live-rootfs.x86_64.img"
     version: "410.84.202201191157-0"
-  # - openshift_version: "4.9"
-  #   cpu_architecture: "x86_64"
-  #   url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-4.9.0-x86_64-live.x86_64.iso"
-  #   rootfs_url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-live-rootfs.x86_64.img"
-  #   version: "49.84.202110081407-0"  
 
 DEFAULT_HW_VALIDATOR_REQUIREMENTS:
   - version: default
@@ -60,7 +51,7 @@ DEFAULT_HW_VALIDATOR_REQUIREMENTS:
       network_latency_threshold_ms: 1000
       packet_loss_percentage: 10
     sno:
-      cpu_cores: 8
+      cpu_cores: 4
       ram_mib: 16384
       disk_size_gb: 120
       installation_disk_speed_threshold_ms: 10
@@ -75,3 +66,9 @@ INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED: quay.io/openshift-release-dev/ocp-
 WORKDIR: /home/assisted-podman
 PRESERVE_DB: true
 CLEAN: false
+
+
+SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-service:latest
+ASSISTED_UI_IMAGE: quay.io/edge-infrastructure/assisted-installer-ui:latest
+IMAGE_SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-image-service:latest
+PSQL_IMAGE_IMAGE: quay.io/centos7/postgresql-12-centos7:latest

@@ -23,27 +23,17 @@ data:
     PUBLIC_CONTAINER_REGISTRIES: "{{ PUBLIC_CONTAINER_REGISTRIES | default("quay.io") }}"
     IMAGE_SERVICE_BASE_URL: http://{{ IMAGE_SERVICE_BASE_URL | default(ansible_ssh_host) }}:8888
     INSTALL_RH_CA: "{{ INSTALL_RH_CA | default("false") }}"
-
     INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED: quay.io/openshift-release-dev/ocp-release:4.10.0-fc.3-x86_64
-
-
-   
     SERVICE_BASE_URL: http://{{ SERVICE_BASE_URL | default(ansible_ssh_host) }}:8090
     ASSISTED_SERVICE_SCHEME: {{ ASSISTED_SERVICE_SCHEME }}
     ASSISTED_SERVICE_HOST: {{ ASSISTED_SERVICE_HOST }}
     LISTEN_PORT: "{{ LISTEN_PORT | default('8888')}}"
-    
     STORAGE: {{ STORAGE }}
-    
     OS_IMAGES: '{{ DEFAULT_OS_IMAGES | to_json  }}'
     RELEASE_IMAGES: '{{ DEFAULT_RELEASE_IMAGES | to_json}}'
-    
-    
-    
     NTP_DEFAULT_SERVER: {{ NTP_SERVER | default("")}}
     IPV6_SUPPORT: {{ IPV6 | default("true")}}
-    
-    HW_VALIDATOR_REQUIREMENTS: '{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | to_json}}'
+    HW_VALIDATOR_REQUIREMENTS: '{{ DEFAULT_HW_VALIDATOR_REQUIREMENTS | to_json }}'
     AGENT_DOCKER_IMAGE: "{{ AGENT_DOCKER_IMAGE }}"
     CONTROLLER_IMAGE: "{{ CONTROLLER_IMAGE }}"
     INSTALLER_IMAGE: "{{ INSTALLER_IMAGE }}"
