@@ -66,6 +66,7 @@ INSTALLER_RELEASE_IMAGE_OVERRIDE_UNSUPPORTED: quay.io/openshift-release-dev/ocp-
 WORKDIR: /home/assisted-podman
 PRESERVE_DB: true
 CLEAN: false
+SERVICE_NAME: assisted-installer
 
 
 SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-service:latest

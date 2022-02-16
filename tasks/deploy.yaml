@@ -76,7 +76,7 @@
  
 - name: Get assisted installer pod state
   containers.podman.podman_pod_info:
-    name: assisted-installer
+    name:  "{{ SERVICE_NAME }}"
   become: true
   register: POD_STATUS
   tags: deploy
@@ -98,7 +98,7 @@
 
 - name: Get assisted installer pod state
   containers.podman.podman_pod_info:
-    name: assisted-installer
+    name:  "{{ SERVICE_NAME }}"
   become: true
   register: POD_STATUS
   tags: deploy
