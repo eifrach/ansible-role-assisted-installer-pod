@@ -110,5 +110,5 @@
     that: 
       - POD_STATUS.pods[0].State == "Running"
     fail_msg: "pod is Not running, pod state: {{ POD_STATUS.pods[0].State  }}"
-    success_msg: "Pod is Running, acceess the UI  http://{{ ansible_ssh_host }}:8080"
+    success_msg: "Pod is Running, acceess the UI  http://{{ ansible_default_ipv4.address }}:8080"
   tags: deploy
