@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json": "file:///Users/eranif/Documents/git/ansible-role-assisted-installer-pod/tasks/deploy.yaml"
-    }
-}
