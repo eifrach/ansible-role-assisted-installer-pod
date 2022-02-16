@@ -8,7 +8,16 @@ metadata:
 spec:
   containers:
   - args:
+{% if ansible_facts.packages['podman'][0].version is version('3.3','>=') %}
     - run-postgresql
+{% else %}
+    - su
+    - -c
+    - run-postgresql
+    - -s
+    - /bin/sh
+    - postgres
+{% endif %}
     image: "{{ PSQL_IMAGE_IMAGE }}"
     name: db
 {% if PRESERVE_DB == true %}
@@ -26,7 +35,7 @@ spec:
     envFrom:
     - configMapRef:
         name: config
-  - image: "{{ SERVICE_IMAGE }}"
+  - image: "{{ IMAGE_SERVICE_IMAGE }}"
     name: image-service
     ports:
     - hostPort: 8888
