@@ -11,6 +11,8 @@ ASSISTED_SERVICE_HOST: 127.0.0.1:8090
 DEPLOY_TARGET: onprem
 STORAGE: filesystem
 
+PUBLIC_CONTAINER_REGISTRIES: "quay.io,registry-proxy.engineering.redhat.com"
+
 DEFAULT_RELEASE_IMAGES:
   - openshift_version: "4.10"
     cpu_architecture: "x86_64"

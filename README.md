@@ -49,10 +49,19 @@ you can test your vars using `--tags tests`
 ansible-playbook -i localhost, playbook.yaml --tags tests
 ```
 
+Clean up environment
+```shell
+ansible-playbook -i localhost, playbook.yaml --tags cleanup
+```
+
+
 ### **Vars and Defaults**
 ---
 global configuations
 ```yaml
+# name of the service and pod
+SERVICE_NAME: assisted-installer
+
 # location for configfiles and Database volume
 WORKDIR: /home/assisted-podman
 
@@ -75,7 +84,7 @@ ENABLE_SINGLE_NODE_DNSMASQ: true
 DUMMY_IGNITION: false
 
 # default container registries 
-PUBLIC_CONTAINER_REGISTRIES: "quay.io"
+PUBLIC_CONTAINER_REGISTRIES: "quay.io,registry-proxy.engineering.redhat.com"
 
 # service mode http / https
 ASSISTED_SERVICE_SCHEME: "http"
