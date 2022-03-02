@@ -72,6 +72,6 @@ SERVICE_NAME: assisted-installer
 
 
 SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-service:latest
-ASSISTED_UI_IMAGE: quay.io/edge-infrastructure/assisted-installer-ui:latest
+ASSISTED_UI_IMAGE: quay.io/itsoiref/assisted-installer-ui:arm_baremetal
 IMAGE_SERVICE_IMAGE: quay.io/edge-infrastructure/assisted-image-service:latest
 PSQL_IMAGE_IMAGE: quay.io/centos7/postgresql-12-centos7:latest
