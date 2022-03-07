@@ -15,3 +15,12 @@
   include_tasks: cleanup.yaml
   tags: never, cleanup
 
+- name: Redner Config map
+  command: echo "{{lookup('template', 'configmap.j2') }}" 
+  register: output  
+  tags: never, configmap
+
+- name: Print template
+  debug:
+    var: output.stdout_lines
+  tags: never, configmap

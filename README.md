@@ -54,6 +54,11 @@ Clean up environment
 ansible-playbook -i localhost, playbook.yaml --tags cleanup
 ```
 
+Get configmap
+```shell
+ansible-playbook -i localhost, playbook.yaml --tags configmap
+```
+
 
 ### **Vars and Defaults**
 ---
