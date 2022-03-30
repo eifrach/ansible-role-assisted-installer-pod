@@ -60,7 +60,7 @@ DEFAULT_HW_VALIDATOR_REQUIREMENTS:
 
 
 CONTROLLER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-reporter-rhel8:v1.0.0-151
-AGENT_DOCKER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-agent-rhel8:v1.0.0-82
+AGENT_DOCKER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-agent-rhel8:v1.0.0-103
 INSTALLER_IMAGE: registry.redhat.io/rhai-tech-preview/assisted-installer-rhel8:v1.0.0-116
 
 # Global vars
